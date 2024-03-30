@@ -1,8 +1,22 @@
-import './TaskItem.scss';
-
+import axios from 'axios';
+import { toast } from 'react-toastify';
 import { AiFillDelete } from 'react-icons/ai';
 
-const TaskItem = ({ task }) => {
+import { api } from '../utils/config';
+
+import './TaskItem.scss';
+
+const TaskItem = ({ task, fetchTask }) => {
+  const handleTaskDelete = async () => {
+    try {
+      await axios.delete(`${api}/${task._id}`);
+      fetchTask();
+      toast.success('Tarefa deletada');
+    } catch (error) {
+      toast.error('Algo deu errado');
+    }
+  };
+
   return (
     <div className="task-item-container">
       <div className="task-description">
@@ -22,7 +36,7 @@ const TaskItem = ({ task }) => {
       </div>
 
       <div className="delete">
-        <AiFillDelete size={18} color="#F97474" />
+        <AiFillDelete size={18} color="#F97474" onClick={handleTaskDelete} />
       </div>
     </div>
   );
