@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import './Task.scss';
 import TaskItem from './TaskItem';
 import AddTask from './AddTask';
+
+import { api } from '../utils/config';
+
+import './Task.scss';
 
 const Task = () => {
   const [tasks, setTasks] = useState([]);
 
   const fetchTask = async () => {
     try {
-      const { data } = await axios.get('http://localhost:8000/tasks');
+      const { data } = await axios.get(api);
       setTasks(data);
       console.log(data);
     } catch (error) {
