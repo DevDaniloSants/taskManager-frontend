@@ -28,7 +28,7 @@ const AddTask = ({ fetchTask }) => {
         isCompleted: false,
       });
 
-      fetchTask();
+      await fetchTask();
       setTask('');
 
       return toast.success('Tarefa adiciona com sucesso');
