@@ -10,7 +10,9 @@ const TaskItem = ({ task, fetchTask }) => {
   const handleTaskDelete = async () => {
     try {
       await axios.delete(`${api}/${task._id}`);
-      fetchTask();
+
+      await fetchTask();
+
       toast.success('Tarefa deletada');
     } catch (error) {
       toast.error('Algo deu errado');
