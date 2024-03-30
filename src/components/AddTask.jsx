@@ -43,6 +43,7 @@ const AddTask = ({ fetchTask }) => {
         label="Adicionar Tarefa..."
         value={task}
         onChange={handleChange}
+        onEnterPress={handleTaskAddition}
       />
       <CustomButton onClick={handleTaskAddition}>
         <FaPlus />
