@@ -19,6 +19,22 @@ const TaskItem = ({ task, fetchTask }) => {
     }
   };
 
+  const handleTaskUpdate = async (e) => {
+    try {
+      await axios.patch(`${api}/${task._id}`, {
+        isCompleted: e.target.checked,
+      });
+
+      await fetchTask();
+
+      toast.success('Tarefa atualizada');
+    } catch (error) {
+      toast.error('Algo deu errado');
+      console.log(error.message);
+      console.log(typeof fetchTask);
+    }
+  };
+
   return (
     <div className="task-item-container">
       <div className="task-description">
@@ -30,7 +46,11 @@ const TaskItem = ({ task, fetchTask }) => {
           }
         >
           {task.description}
-          <input type="checkbox" defaultChecked={task.isCompleted} />
+          <input
+            type="checkbox"
+            defaultChecked={task.isCompleted}
+            onChange={(e) => handleTaskUpdate(e)}
+          />
           <span
             className={task.isCompleted ? 'checkmark completed' : 'checkmark'}
           ></span>
