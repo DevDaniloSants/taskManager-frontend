@@ -16,7 +16,7 @@ const Task = () => {
     try {
       const { data } = await axios.get(api);
       setTasks(data);
-    } catch (error) {
+    } catch (_error) {
       toast.error('Algo deu errado, tente mais tarde');
     }
   };

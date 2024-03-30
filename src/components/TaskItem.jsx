@@ -14,7 +14,7 @@ const TaskItem = ({ task, fetchTask }) => {
       await fetchTask();
 
       toast.success('Tarefa deletada');
-    } catch (error) {
+    } catch (_error) {
       toast.error('Algo deu errado');
     }
   };
@@ -28,10 +28,8 @@ const TaskItem = ({ task, fetchTask }) => {
       await fetchTask();
 
       toast.success('Tarefa atualizada');
-    } catch (error) {
+    } catch (_error) {
       toast.error('Algo deu errado');
-      console.log(error.message);
-      console.log(typeof fetchTask);
     }
   };
 
