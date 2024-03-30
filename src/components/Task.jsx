@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 import TaskItem from './TaskItem';
 import AddTask from './AddTask';
@@ -15,9 +16,8 @@ const Task = () => {
     try {
       const { data } = await axios.get(api);
       setTasks(data);
-      console.log(data);
     } catch (error) {
-      console.log(error.message);
+      toast.error('Algo deu errado, tente mais tarde');
     }
   };
 
@@ -28,29 +28,38 @@ const Task = () => {
   return (
     <div className="tasks-container">
       <h2>Minhas tarefas</h2>
+      <ToastContainer theme="dark" />
 
-      <div className="last-tasks">
-        <h3>Últimas Tarefas</h3>
-        <AddTask />
-        <div className="tasks-list">
-          {tasks
-            .filter((task) => !task.isCompleted)
-            .map((lastTask) => (
-              <TaskItem key={lastTask._id} task={lastTask} />
-            ))}
-        </div>
-      </div>
+      {tasks ? (
+        <>
+          <div className="last-tasks">
+            <h3>Últimas Tarefas</h3>
+            <AddTask fetchTask={fetchTask} />
+            <div className="tasks-list">
+              {tasks
+                .filter((task) => !task.isCompleted)
+                .map((lastTask) => (
+                  <TaskItem key={lastTask._id} task={lastTask} />
+                ))}
+            </div>
+          </div>
 
-      <div className="completed-tasks">
-        <h3>Tarefas Concluídas</h3>
-        <div className="tasks-list">
-          {tasks
-            .filter((task) => task.isCompleted)
-            .map((completedTask) => (
-              <TaskItem key={completedTask._id} task={completedTask} />
-            ))}
-        </div>
-      </div>
+          <div className="completed-tasks">
+            <h3>Tarefas Concluídas</h3>
+            <div className="tasks-list">
+              {tasks
+                .filter((task) => task.isCompleted)
+                .map((completedTask) => (
+                  <TaskItem key={completedTask._id} task={completedTask} />
+                ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <p>
+          Carregandoooooooooooooooooooooooooooooooooooooooooooooooooooooooo...
+        </p>
+      )}
     </div>
   );
 };
