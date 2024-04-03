@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -12,14 +12,14 @@ import './Task.scss';
 const Task = () => {
   const [tasks, setTasks] = useState([]);
 
-  const fetchTask = async () => {
+  const fetchTask = useCallback(async () => {
     try {
       const { data } = await axios.get(api);
       setTasks(data);
     } catch (_error) {
       toast.error('Algo deu errado, tente mais tarde');
     }
-  };
+  }, []);
 
   const lastTasks = useMemo(() => {
     return tasks.filter((task) => !task.isCompleted);
@@ -31,7 +31,7 @@ const Task = () => {
 
   useEffect(() => {
     fetchTask();
-  }, []);
+  }, [fetchTask]);
 
   return (
     <div className="tasks-container">
