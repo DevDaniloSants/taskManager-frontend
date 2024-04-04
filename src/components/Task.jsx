@@ -1,49 +1,50 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify'
 
-import TaskItem from './TaskItem';
-import AddTask from './AddTask';
+import TaskItem from './TaskItem'
+import AddTask from './AddTask'
 
-import { api } from '../utils/config';
+import { api } from '../utils/config'
 
-import './Task.scss';
+import './Task.scss'
 
 const Task = () => {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([])
 
   const fetchTask = useCallback(async () => {
     try {
-      const { data } = await axios.get(api);
-      setTasks(data);
+      const { data } = await axios.get(api)
+      setTasks(data)
     } catch (_error) {
-      toast.error('Algo deu errado, tente mais tarde');
+      toast.error('Algo deu errado, tente mais tarde')
     }
-  }, []);
+  }, [])
 
   const lastTasks = useMemo(() => {
-    return tasks.filter((task) => !task.isCompleted);
-  }, [tasks]);
+    return tasks.filter((task) => !task.isCompleted)
+  }, [tasks])
 
   const completedTasks = useMemo(() => {
-    return tasks.filter((task) => task.isCompleted);
-  }, [tasks]);
+    return tasks.filter((task) => task.isCompleted)
+  }, [tasks])
 
   useEffect(() => {
-    fetchTask();
-  }, [fetchTask]);
+    fetchTask()
+  }, [fetchTask])
 
   return (
-    <div className="tasks-container">
+    <div className='tasks-container'>
       <h2>Minhas tarefas</h2>
-      <ToastContainer theme="dark" />
+      <ToastContainer theme='dark' />
 
-      {tasks ? (
+      {tasks
+        ? (
         <>
-          <div className="last-tasks">
+          <div className='last-tasks'>
             <h3>Últimas Tarefas</h3>
             <AddTask fetchTask={fetchTask} />
-            <div className="tasks-list">
+            <div className='tasks-list'>
               {lastTasks.map((lastTask) => (
                 <TaskItem
                   key={lastTask._id}
@@ -54,9 +55,9 @@ const Task = () => {
             </div>
           </div>
 
-          <div className="completed-tasks">
+          <div className='completed-tasks'>
             <h3>Tarefas Concluídas</h3>
-            <div className="tasks-list">
+            <div className='tasks-list'>
               {completedTasks.map((completedTask) => (
                 <TaskItem
                   key={completedTask._id}
@@ -67,13 +68,14 @@ const Task = () => {
             </div>
           </div>
         </>
-      ) : (
+          )
+        : (
         <p>
           Carregandoooooooooooooooooooooooooooooooooooooooooooooooooooooooo...
         </p>
-      )}
+          )}
     </div>
-  );
-};
+  )
+}
 
-export default Task;
+export default Task

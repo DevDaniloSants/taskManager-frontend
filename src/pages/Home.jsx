@@ -1,7 +1,7 @@
-import Sidebar from '../components/Sidebar';
-import Task from '../components/Task';
+import Sidebar from '../components/Sidebar'
+import Task from '../components/Task'
 
-import './Home.scss';
+import './Home.scss'
 
 const Home = () => {
   return (
@@ -9,7 +9,7 @@ const Home = () => {
       <Sidebar />
       <Task />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

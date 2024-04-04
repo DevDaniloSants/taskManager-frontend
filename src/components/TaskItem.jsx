@@ -1,41 +1,41 @@
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { AiFillDelete } from 'react-icons/ai';
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import { AiFillDelete } from 'react-icons/ai'
 
-import { api } from '../utils/config';
+import { api } from '../utils/config'
 
-import './TaskItem.scss';
+import './TaskItem.scss'
 
 const TaskItem = ({ task, fetchTask }) => {
   const handleTaskDelete = async () => {
     try {
-      await axios.delete(`${api}/${task._id}`);
+      await axios.delete(`${api}/${task._id}`)
 
-      await fetchTask();
+      await fetchTask()
 
-      toast.success('Tarefa deletada');
+      toast.success('Tarefa deletada')
     } catch (_error) {
-      toast.error('Algo deu errado');
+      toast.error('Algo deu errado')
     }
-  };
+  }
 
   const handleTaskUpdate = async (e) => {
     try {
       await axios.patch(`${api}/${task._id}`, {
-        isCompleted: e.target.checked,
-      });
+        isCompleted: e.target.checked
+      })
 
-      await fetchTask();
+      await fetchTask()
 
-      toast.success('Tarefa atualizada');
+      toast.success('Tarefa atualizada')
     } catch (_error) {
-      toast.error('Algo deu errado');
+      toast.error('Algo deu errado')
     }
-  };
+  }
 
   return (
-    <div className="task-item-container">
-      <div className="task-description">
+    <div className='task-item-container'>
+      <div className='task-description'>
         <label
           className={
             task.isCompleted
@@ -45,7 +45,7 @@ const TaskItem = ({ task, fetchTask }) => {
         >
           {task.description}
           <input
-            type="checkbox"
+            type='checkbox'
             defaultChecked={task.isCompleted}
             onChange={(e) => handleTaskUpdate(e)}
           />
@@ -55,11 +55,11 @@ const TaskItem = ({ task, fetchTask }) => {
         </label>
       </div>
 
-      <div className="delete">
-        <AiFillDelete size={18} color="#F97474" onClick={handleTaskDelete} />
+      <div className='delete'>
+        <AiFillDelete size={18} color='#F97474' onClick={handleTaskDelete} />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TaskItem;
+export default TaskItem

@@ -1,18 +1,17 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
 
-import logo from '../assets/images/logo-2.png';
-import CustomButton from '../components/CustomButton';
+import logo from '../assets/images/logo-2.png'
+import CustomButton from '../components/CustomButton'
 
-import './Login.scss';
+import './Login.scss'
 
 const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSignInClick = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
-  
   return (
     <div className="login-container">
       <img src={logo} alt="Full Stack Club" />
@@ -20,7 +19,7 @@ const Login = () => {
         <CustomButton onClick={handleSignInClick}>Entrar</CustomButton>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

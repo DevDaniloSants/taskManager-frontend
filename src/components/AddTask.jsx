@@ -1,46 +1,46 @@
-import { useState } from 'react';
-import { FaPlus } from 'react-icons/fa';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import { useState } from 'react'
+import { FaPlus } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+import axios from 'axios'
 
-import CustomInput from './CustomInput';
-import CustomButton from './CustomButton';
+import CustomInput from './CustomInput'
+import CustomButton from './CustomButton'
 
-import { api } from '../utils/config';
+import { api } from '../utils/config'
 
-import './AddTask.scss';
+import './AddTask.scss'
 
 const AddTask = ({ fetchTask }) => {
-  const [task, setTask] = useState('');
+  const [task, setTask] = useState('')
 
   const handleChange = (e) => {
-    setTask(e.target.value);
-  };
+    setTask(e.target.value)
+  }
 
   const handleTaskAddition = async () => {
     try {
       if (task.length === 0) {
-        return toast.error('A tarefa precisa ter uma descrição');
+        return toast.error('A tarefa precisa ter uma descrição')
       }
 
       await axios.post(api, {
         description: task,
-        isCompleted: false,
-      });
+        isCompleted: false
+      })
 
-      await fetchTask();
-      setTask('');
+      await fetchTask()
+      setTask('')
 
-      return toast.success('Tarefa adiciona com sucesso');
+      return toast.success('Tarefa adiciona com sucesso')
     } catch (_error) {
-      toast.error('Algo deu errado');
+      toast.error('Algo deu errado')
     }
-  };
+  }
 
   return (
-    <div className="add-task-container">
+    <div className='add-task-container'>
       <CustomInput
-        label="Adicionar Tarefa..."
+        label='Adicionar Tarefa...'
         value={task}
         onChange={handleChange}
         onEnterPress={handleTaskAddition}
@@ -49,7 +49,7 @@ const AddTask = ({ fetchTask }) => {
         <FaPlus />
       </CustomButton>
     </div>
-  );
-};
+  )
+}
 
-export default AddTask;
+export default AddTask
