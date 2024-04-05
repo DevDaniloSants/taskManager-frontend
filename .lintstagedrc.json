@@ -1,0 +1,3 @@
+{
+  "*.jsx": "npx eslint --fix --ext .jsx"
+}
