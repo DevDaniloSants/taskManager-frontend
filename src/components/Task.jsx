@@ -11,13 +11,17 @@ import './Task.scss'
 
 const Task = () => {
   const [tasks, setTasks] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const fetchTask = useCallback(async () => {
     try {
+      setLoading(true)
       const { data } = await axios.get(api)
       setTasks(data)
     } catch (_error) {
       toast.error('Algo deu errado, tente mais tarde')
+    } finally {
+      setLoading(false)
     }
   }, [])
 
@@ -33,25 +37,29 @@ const Task = () => {
     fetchTask()
   }, [fetchTask])
 
+  if (loading) {
+    return <p>carregando...</p>
+  }
+
   return (
     <div className='tasks-container'>
       <h2>Minhas tarefas</h2>
       <ToastContainer theme='dark' />
 
-      {tasks
-        ? (
+      {tasks && (
         <>
           <div className='last-tasks'>
             <h3>Últimas Tarefas</h3>
             <AddTask fetchTask={fetchTask} />
             <div className='tasks-list'>
-              {lastTasks.map((lastTask) => (
-                <TaskItem
-                  key={lastTask._id}
-                  task={lastTask}
-                  fetchTask={fetchTask}
-                />
-              ))}
+              {lastTasks &&
+                lastTasks.map((lastTask) => (
+                  <TaskItem
+                    key={lastTask._id}
+                    task={lastTask}
+                    fetchTask={fetchTask}
+                  />
+                ))}
             </div>
           </div>
 
@@ -68,12 +76,7 @@ const Task = () => {
             </div>
           </div>
         </>
-          )
-        : (
-        <p>
-          Carregandoooooooooooooooooooooooooooooooooooooooooooooooooooooooo...
-        </p>
-          )}
+      )}
     </div>
   )
 }
